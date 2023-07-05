@@ -1,4 +1,7 @@
 <script setup>
+    import MenuLayout from '@/components/layouts/MenuLayout.vue'
+    import MenuButton from '@/components/buttons/MenuButton.vue'
+
 defineProps({
   msg: {
     type: String,
@@ -8,13 +11,10 @@ defineProps({
 </script>
 
 <template>
-  <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
-      You’ve successfully created a project with
-      <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
-      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
-    </h3>
+  <div>
+      <menu-layout>
+          <menu-button v-for="i in 50">asd</menu-button>
+      </menu-layout>
   </div>
 </template>
 

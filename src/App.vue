@@ -1,47 +1,78 @@
-<script setup>
+﻿<script setup>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <div>
+        <div v-if="showTitle"
+             class="nav">
+            <div v-if="this.$route.path != '/a'"
+                 class="nav-back">
+                <i v-on:click="$router.go(-1)"
+                   class="fa fa-arrow-circle-left fa-3x" style="color:white;cursor: pointer;font-size:44px;"></i>
+            </div>
+            {{ this.$store.title }}
+        </div>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+        <div class="slot">
+            <router-view></router-view>
+        </div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
 </template>
 
+<script>
+    export default {
+        data: function () {
+            return {
+                scrollTop: document.body.scrollTop,
+                showTitle: true
+            };
+        },
+        watch: {
+            '$route.path': function (_newVal, _oldVal) {
+                if (_newVal == '/')
+                    this.$store.title = '主页'
+            }
+        },
+        mounted: function () {
+            this.$store.toastr = this.$refs.toastr;
+            window.addEventListener('scroll', (e) => {
+                if (this.scrollTop > 60)
+                    if (document.body.scrollTop - this.scrollTop < 0)
+                        this.showTitle = true;
+                    else
+                        this.showTitle = false;
+
+                this.scrollTop = document.body.scrollTop;
+            });
+
+            this.$store.title = '主页';
+        }
+    }
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
-}
+    .nav {
+        position: fixed;
+        text-align: center;
+        width: 100%;
+        height: 70px;
+        color: white;
+        font-size: 30px;
+        line-height: 66px;
+        background-color: rgb(66, 66, 66);
+        z-index: 999;
+    }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+    .nav-back {
+        position: absolute;
+        left: 10px;
+        top: 12px;
+    }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
+    .slot {
+        padding: 20px;
+        padding-top: 70px;
+    }
 </style>
