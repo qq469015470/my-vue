@@ -1,13 +1,15 @@
 ﻿<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+    import Toastr from '@/components/Toastr.vue'
 </script>
 
 <template>
     <div>
+        <!-- 推送消息框 -->
+        <toastr ref="toastr"></toastr>
+
         <div v-if="showTitle"
              class="nav">
-            <div v-if="this.$route.path != '/a'"
+            <div v-if="this.$route.path != '/'"
                  class="nav-back">
                 <i v-on:click="$router.go(-1)"
                    class="fa fa-arrow-circle-left fa-3x" style="color:white;cursor: pointer;font-size:44px;"></i>

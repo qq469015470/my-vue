@@ -12,7 +12,10 @@ import * as Vuex from 'vuex'
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [{
-        path: '/', component: () => import('@/components/HelloWorld.vue'),
+            path: '/', component: () => import('@/pages/Index.vue'),
+        },
+        {
+            path: '/demopage', component: () => import('@/pages/DemoPage.vue'),
     }],
     render(h) {
         return h(() => import('@/src/App.vue'))
