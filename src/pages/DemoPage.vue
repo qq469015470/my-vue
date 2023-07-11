@@ -2,6 +2,7 @@
     import ContentLayout from '@/components/layouts/ContentLayout.vue'
     import InputBox from '@/components/inputs/InputBox.vue'
     import InputDate from '@/components/inputs/InputDate.vue'
+    import InputTip from '@/components/inputs/InputTip.vue'
 </script>
 
 <template>
@@ -26,6 +27,14 @@
                     <button v-on:click="button2_click();">按钮2</button>
                 </div>
             </div>
+            <div class="row">
+                <div class="lg4">
+                    <label>提示输入框：</label>
+                </div>
+                <div class="lg12">
+                    <input-tip v-model="filter.name" :tips="filter.tips"></input-tip>
+                </div>
+            </div>
         </content-layout>
     </div>
 </template>
@@ -36,6 +45,10 @@ export default {
         return {
             content: '默认值',
             date: '',
+            filter: {
+                name: '',
+                tips: ['123','bbbbb'],
+            }
         } 
     },
     methods: {

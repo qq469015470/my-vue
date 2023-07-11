@@ -1,10 +1,14 @@
+<script setup>
+    import InputBox from '@/components/inputs/InputBox.vue'
+</script>
+
 <template>
     <div style="position: relative"
          v-on:mouseout="mouseOut = true;"
          v-on:mouseover="mouseOut = false;">
         <input-box :disabled="disabled"
                    :type="type"
-                   :value="value"
+                   v-model="tipValue"
                    v-on:input="InputEvent" />
         <div v-if="Object(tips).length > 0 && show"
              class="tip-container">
@@ -18,8 +22,6 @@
 </template>
 
 <script>
-import InputBox from '@components/inputs/InputBox.vue'
-
 export default {
     components: {
         InputBox
@@ -33,7 +35,7 @@ export default {
             type: String,
             default: '',
         },
-        value: {
+        modelValue: {
             type: String,
             default: '',
         },
@@ -46,12 +48,18 @@ export default {
         return {
             show: false,
             mouseOut: true,
+            tipValue: '',
         }
+    },
+    watch: {
+        tipValue: function (_new) {
+            this.$emit('update:modelValue', _new);
+        } 
     },
     methods: {
         SelectTip: function (_value) {
             this.show = false;
-            this.$emit('input', _value);
+            this.tipValue = _value;
         },
         InputEvent: function (_e) {
             this.show = true;
