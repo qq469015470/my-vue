@@ -3,6 +3,7 @@
     import InputBox from '@/components/inputs/InputBox.vue'
     import InputDate from '@/components/inputs/InputDate.vue'
     import InputTip from '@/components/inputs/InputTip.vue'
+    import Modal from '@/components/modal.vue'
 </script>
 
 <template>
@@ -34,8 +35,43 @@
                 <div class="lg12">
                     <input-tip v-model="filter.name" :tips="filter.tips"></input-tip>
                 </div>
+                <div class="lg6"></div>
+                <div class="lg4"><button class="btn-red" v-on:click="showModal = true">弹框</button></div>
+                <div class="lg6"></div>
             </div>
         </content-layout>
+
+        <div>
+        <modal :show="showModal">
+            <div class="modal-title">
+                <div class="row">
+                    <h2>添加</h2>
+                </div>
+            </div>
+            <div class="modal-content">
+                <label>名称：</label>
+                <input-box />
+                <label>数量</label>
+                <input-box 
+                           type="number" />
+                <label>单件成本：</label>
+                <input-box
+                           type="number" />
+            </div>
+            <div class="modal-footer">
+                <div class="lg8 row">
+                    <button v-on:click="showModal = false">
+                        添加
+                    </button>
+                </div><div class="lg8 row">
+                    <button v-on:click="showModal = false"
+                            class="btn-red">
+                        关闭
+                    </button>
+                </div>
+            </div>
+        </modal>
+        </div>
     </div>
 </template>
 
@@ -48,7 +84,8 @@ export default {
             filter: {
                 name: '',
                 tips: ['123','bbbbb'],
-            }
+            },
+            showModal: true,
         } 
     },
     methods: {
