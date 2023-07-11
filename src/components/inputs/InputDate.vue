@@ -1,3 +1,7 @@
+<script setup>
+import InputBox from '@/components/inputs/InputBox.vue'
+</script>
+
 <template>
     <div v-on:mouseout="mouseOut = true"
          v-on:mouseover="mouseOut = false">
@@ -5,7 +9,7 @@
             <div class="right">
                 <button class="icon"
                         v-on:click="show = true;">
-                    <i class="fas fa-calendar"></i>
+                    <i class="fa fa-calendar"></i>
                 </button>
             </div>
             <div class="left">
@@ -19,27 +23,27 @@
                 <div class="calendar-title">
                     <div v-on:click="LastYear();" 
                         class="btn-month-left">
-                        <i class="fas fa-chevron-left"></i>
+                        <i class="fa fa-chevron-left"></i>
                     </div>
                     <div style="display:inline-block;width: 100px;">
                         {{ this.curYear }} 年
                     </div>
                     <div v-on:click="NextYear();" 
                         class="btn-month-right">
-                        <i class="fas fa-chevron-right"></i>
+                        <i class="fa fa-chevron-right"></i>
                     </div>
                 </div>
                 <div class="calendar-title">
                     <div v-on:click="LastMonth();"
                          class="btn-month-left">
-                        <i class="fas fa-chevron-left"></i>
+                        <i class="fa fa-chevron-left"></i>
                     </div>
                     <div style="display:inline-block;width: 100px;">
                         {{ this.curMonth + 1}} 月
                     </div>
                     <div v-on:click="NextMonth();"
                          class="btn-month-right">
-                        <i class="fas fa-chevron-right"></i>
+                        <i class="fa fa-chevron-right"></i>
                     </div>
                 </div>
                 <ul class="calendar-week">
@@ -88,14 +92,12 @@
 </template>
 
 <script>
-import InputBox from '@components/inputs/InputBox.vue'
-
 export default {
     components: {
         InputBox
     },
     props: {
-        value: {
+        modelValue: {
             type: String,
             default: ''
         }
@@ -111,7 +113,7 @@ export default {
     },
     watch: {
         dateValue: function(_new) {
-            this.$emit('input', _new);
+            this.$emit('update:modelValue', _new);
         }    
     },
     computed: {
@@ -264,7 +266,7 @@ export default {
                 this.show = false;
         }
 
-        this.dateValue = this.value;
+        this.dateValue = this.modelValue || date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     }
 }
 </script>
