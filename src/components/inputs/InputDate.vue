@@ -255,16 +255,17 @@ export default {
             }
         },
     },
+    mounted: function () {
+        document.onmousedown = () => {
+            if(this.mouseOut)
+                this.show = false;
+        }
+    }, 
     created: function () {
         var date = new Date();
 
         this.curYear = date.getFullYear();
         this.curMonth = date.getMonth();
-
-        document.onmousedown = () => {
-            if(this.mouseOut)
-                this.show = false;
-        }
 
         this.dateValue = this.modelValue || date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     }

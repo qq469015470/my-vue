@@ -85,7 +85,7 @@ export default {
                 name: '',
                 tips: ['123','bbbbb'],
             },
-            showModal: true,
+            showModal: false,
         } 
     },
     methods: {
